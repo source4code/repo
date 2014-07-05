@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:car id="DEF-456" xmlns:ns2="info.source4code.jaxb.model">
+    <make>Golf</make>
+    <manufacturer>Volkswagen</manufacturer>
+</ns2:car>
