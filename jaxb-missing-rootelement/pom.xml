@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>JAXB - Marshal &amp; Unmarshal with missing @XmlRootElement</name>
-    <url>http://www.source4code.info/</url>
+    <url>http://www.source4code.info/2013/07/jaxb-marshal-unmarshal-with-missing.html</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
