@@ -1,7 +1,7 @@
 <configuration>
 
     <!-- PROPERTIES -->
-    <property name="logFile" value="jms-activemq-priority-test.log" />
+    <property name="logFile" value="jms-priority-activemq-test.log" />
 
     <!-- LOGBACK APPENDERS -->
     <appender name="LOG_FILE"

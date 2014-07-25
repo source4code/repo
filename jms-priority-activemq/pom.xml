@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>info.source4code</groupId>
-    <artifactId>jms-activemq-priority</artifactId>
+    <artifactId>jms-priority-activemq</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
