@@ -1,0 +1,47 @@
+<configuration>
+
+    <!-- PROPERTIES -->
+    <property name="logFile" value="soap-http-jetty-cxf-helloworld-test.log" />
+
+    <!-- LOGBACK APPENDERS -->
+    <appender name="LOG_FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <File>${logFile}</File>
+
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logFile}.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
+                %m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <appender name="LOG_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
+            by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
+                %m%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <logger name="info.source4code.soap.http.cxf" level="DEBUG" />
+
+    <logger name="org.springframework" level="INFO" />
+    <logger name="org.apache.cxf" level="INFO" />
+
+    <!-- LOG LEVEL -->
+    <root level="WARN">
+        <appender-ref ref="LOG_FILE" />
+        <appender-ref ref="LOG_STDOUT" />
+    </root>
+
+</configuration>
