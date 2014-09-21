@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
     <!-- PROPERTIES -->
-    <property name="logFile" value="jms-priority-activemq-test.log" />
+    <property name="logFile" value="jms-activemq-priority-test.log" />
 
     <!-- LOGBACK APPENDERS -->
     <appender name="LOG_FILE"
@@ -17,9 +18,8 @@
         </rollingPolicy>
 
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -
-                %msg%n
-            </pattern>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
+                %m%n</pattern>
         </encoder>
     </appender>
 
@@ -27,9 +27,8 @@
         <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
             by default -->
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} -
-                %msg%n
-            </pattern>
+            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
+                %m%n</pattern>
         </encoder>
     </appender>
 
