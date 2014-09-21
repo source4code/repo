@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>info.source4code</groupId>
-    <artifactId>jsf-primefaces-helloworld</artifactId>
+    <artifactId>jsf-jetty-primefaces-helloworld</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>JSF - PrimeFaces Hello World example using Jetty</name>
+    <name>JSF - PrimeFaces Hello World using Jetty</name>
     <url>http://www.source4code.info/2014/04/jsf-primefaces-hello-world-using-jetty.html</url>
 
     <properties>
