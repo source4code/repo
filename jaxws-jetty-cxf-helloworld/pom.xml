@@ -8,7 +8,7 @@
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>JAX-WS - CXF contract first Hello World web service using Jetty and Maven</name>
+    <name>JAX-WS - CXF contract first Hello World web service using Jetty</name>
     <url>http://www.source4code.info/2014/08/jax-ws-cxf-contract-first-hello-world.html</url>
 
     <properties>
