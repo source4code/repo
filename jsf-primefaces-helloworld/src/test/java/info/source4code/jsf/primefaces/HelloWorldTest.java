@@ -8,11 +8,27 @@ import org.junit.Test;
 public class HelloWorldTest {
 
     @Test
-    public void testShowGreeting() {
+    public void testGetFirstName() {
         HelloWorld helloWorld = new HelloWorld();
-        helloWorld.setFirstName("John");
+        helloWorld.setFirstName("Jane");
+
+        assertEquals(helloWorld.getFirstName(), "Jane");
+    }
+
+    @Test
+    public void testGetLastName() {
+        HelloWorld helloWorld = new HelloWorld();
         helloWorld.setLastName("Doe");
 
-        assertEquals(helloWorld.showGreeting(), "Hello John Doe!");
+        assertEquals(helloWorld.getLastName(), "Doe");
+    }
+
+    @Test
+    public void testShowGreeting() {
+        HelloWorld helloWorld = new HelloWorld();
+        helloWorld.setFirstName("Jane");
+        helloWorld.setLastName("Doe");
+
+        assertEquals(helloWorld.showGreeting(), "Hello Jane Doe!");
     }
 }
