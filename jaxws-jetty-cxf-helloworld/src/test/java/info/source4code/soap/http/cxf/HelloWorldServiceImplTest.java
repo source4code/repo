@@ -1,7 +1,6 @@
 package info.source4code.soap.http.cxf;
 
 import static org.junit.Assert.assertEquals;
-import info.source4code.wsdl.helloworld.HelloWorldPort;
 import info.source4code.wsdl.helloworld.Person;
 
 import org.apache.cxf.jaxws.JaxWsServerFactoryBean;
