@@ -35,7 +35,7 @@
 
     <logger name="info.source4code.soap.http.cxf" level="DEBUG" />
 
-    <logger name="org.springframework" level="INFO" />
+    <logger name="org.springframework" level="WARN" />
     <logger name="org.apache.cxf" level="INFO" />
 
     <!-- LOG LEVEL -->
