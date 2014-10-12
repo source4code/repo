@@ -12,18 +12,18 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/META-INF/spring/applicationContext.xml" })
-public class HelloWorldServiceImplTest {
+@ContextConfiguration(locations = { "classpath:/META-INF/spring/context-requester.xml" })
+public class HelloWorldImplTest {
 
     private static String ENDPOINT_ADDRESS = "http://localhost:9090/s4c/services/helloworld";
 
     @Autowired
-    private HelloWorldClientImpl client;
+    private HelloWorldClient clientBean;
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
         // start the HelloWorld service using jaxWsServerFactoryBean
-        HelloWorldServiceImpl implementor = new HelloWorldServiceImpl();
+        HelloWorldImpl implementor = new HelloWorldImpl();
         JaxWsServerFactoryBean jaxWsServerFactoryBean = new JaxWsServerFactoryBean();
         jaxWsServerFactoryBean.setAddress(ENDPOINT_ADDRESS);
         jaxWsServerFactoryBean.setServiceBean(implementor);
@@ -37,6 +37,6 @@ public class HelloWorldServiceImplTest {
         person.setFirstName("Jane");
         person.setLastName("Doe");
 
-        assertEquals("Hello Jane Doe!", client.sayHello(person));
+        assertEquals("Hello Jane Doe!", clientBean.sayHello(person));
     }
 }

@@ -26,6 +26,7 @@
                     </sequence>
                 </complexType>
             </element>
+
         </schema>
     </wsdl:types>
 

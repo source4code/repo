@@ -6,9 +6,9 @@ http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
-    <jaxws:client id="helloWorldClient"
-        serviceClass="info.source4code.wsdl.helloworld.HelloWorldPort"
-        address="${helloworld.address}">
-    </jaxws:client>
+    <jaxws:endpoint id="helloWorldProviderBean"
+        implementor="info.source4code.soap.http.cxf.HelloWorldImpl"
+        address="/helloworld">
+    </jaxws:endpoint>
 
 </beans>

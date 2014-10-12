@@ -8,10 +8,10 @@ import info.source4code.wsdl.helloworld.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HelloWorldServiceImpl implements HelloWorldPort {
+public class HelloWorldImpl implements HelloWorldPort {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(HelloWorldServiceImpl.class);
+            .getLogger(HelloWorldImpl.class);
 
     @Override
     public Greeting sayHello(Person person) {

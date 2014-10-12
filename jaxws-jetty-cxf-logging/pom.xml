@@ -9,7 +9,7 @@
     <packaging>war</packaging>
 
     <name>JAX-WS - CXF logging inbound and outbound messages using Jetty</name>
-    <url>http://www.source4code.info/</url>
+    <url>http://www.source4code.info/2014/09/jax-ws-cxf-logging-inbound-and-outbound.html</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

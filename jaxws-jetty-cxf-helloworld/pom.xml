@@ -6,7 +6,7 @@
     <groupId>info.source4code</groupId>
     <artifactId>jaxws-jetty-cxf-helloworld</artifactId>
     <version>1.0</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>JAX-WS - CXF contract first Hello World web service using Jetty</name>
     <url>http://www.source4code.info/2014/08/jax-ws-cxf-contract-first-hello-world.html</url>
@@ -17,9 +17,9 @@
 
         <slf4j.version>1.7.7</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <junit.version>4.12-beta-1</junit.version>
+        <junit.version>4.12-beta-2</junit.version>
         <cxf.version>3.0.1</cxf.version>
-        <spring.version>4.1.0.RELEASE</spring.version>
+        <spring.version>4.1.1.RELEASE</spring.version>
 
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <jetty-maven-plugin.version>8.1.14.v20131031</jetty-maven-plugin.version>
@@ -61,9 +61,9 @@
             <artifactId>cxf-rt-transports-http</artifactId>
             <version>${cxf.version}</version>
         </dependency>
-        <!-- Jetty is needed if you're are not using the CXFServlet -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
+            <!-- Jetty is needed if you're are not using the CXFServlet -->
             <artifactId>cxf-rt-transports-http-jetty</artifactId>
             <version>${cxf.version}</version>
         </dependency>

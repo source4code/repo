@@ -8,8 +8,8 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- import the cxf client configuration -->
-    <import resource="classpath:META-INF/spring/cxf-client.xml" />
+    <!-- import the cxf requester configuration -->
+    <import resource="classpath:META-INF/spring/cxf-requester.xml" />
 
     <!-- enables annotation based configuration -->
     <context:annotation-config />

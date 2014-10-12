@@ -2,7 +2,7 @@
 <configuration>
 
     <!-- PROPERTIES -->
-    <property name="logFile" value="soap-http-jetty-cxf-helloworld-test.log" />
+    <property name="logFile" value="jaxws-jetty-cxf-helloworld-test.log" />
 
     <!-- LOGBACK APPENDERS -->
     <appender name="LOG_FILE"

@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class HelloWorldClientImpl {
+public class HelloWorldClient {
 
     private static final Logger LOGGER = LoggerFactory
-            .getLogger(HelloWorldClientImpl.class);
+            .getLogger(HelloWorldClient.class);
 
     @Autowired
-    private HelloWorldPort helloWorldClient;
+    private HelloWorldPort helloworldRequesterBean;
 
     public String sayHello(Person person) {
-        Greeting greeting = helloWorldClient.sayHello(person);
+        Greeting greeting = helloworldRequesterBean.sayHello(person);
 
         String result = greeting.getText();
         LOGGER.info("result={}", result);

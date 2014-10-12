@@ -10,11 +10,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/META-INF/spring/applicationContext.xml" })
-public class HelloWorldServiceImplIT {
+@ContextConfiguration(locations = { "classpath:/META-INF/spring/context-requester.xml" })
+public class HelloWorldImplIT {
 
     @Autowired
-    private HelloWorldClientImpl client;
+    private HelloWorldClient clientBean;
 
     @Test
     public void testSayHello() {
@@ -23,6 +23,6 @@ public class HelloWorldServiceImplIT {
         person.setFirstName("John");
         person.setLastName("Doe");
 
-        assertEquals("Hello John Doe!", client.sayHello(person));
+        assertEquals("Hello John Doe!", clientBean.sayHello(person));
     }
 }

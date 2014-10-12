@@ -2,7 +2,7 @@
 <configuration scan="true" scanPeriod="60 seconds">
 
     <!-- PROPERTIES -->
-    <property name="logFile" value="soap-http-jetty-cxf-helloworld.log" />
+    <property name="logFile" value="jaxws-jetty-cxf-helloworld.log" />
 
     <!-- LOGBACK APPENDERS -->
     <appender name="APP_LOG_FILE"
@@ -27,7 +27,7 @@
     <logger name="info.source4code.soap.http.cxf" level="INFO" />
 
     <logger name="org.springframework" level="WARN" />
-    <logger name="org.apache.cxf" level="INFO" />
+    <logger name="org.apache.cxf" level="WARN" />
 
     <!-- APPLICATION LOG LEVEL -->
     <root level="WARN">

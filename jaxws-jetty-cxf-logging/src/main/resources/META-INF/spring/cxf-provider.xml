@@ -13,7 +13,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- import the cxf logging configuration -->
     <import resource="classpath:META-INF/spring/cxf-logging.xml" />
 
-    <jaxws:endpoint id="helloWorldService"
+    <jaxws:endpoint id="helloWorldProviderBean"
         implementor="info.source4code.soap.http.cxf.HelloWorldImpl"
         address="/helloworld">
     </jaxws:endpoint>
