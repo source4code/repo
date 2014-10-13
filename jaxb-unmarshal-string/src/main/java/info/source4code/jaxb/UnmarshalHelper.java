@@ -11,12 +11,13 @@ import javax.xml.bind.Unmarshaller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnmarshalHelper {
+public final class UnmarshalHelper {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UnmarshalHelper.class);
 
     private UnmarshalHelper() {
+        // not called
     }
 
     public static Car unmarshal(String xml) throws JAXBException {

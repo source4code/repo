@@ -13,12 +13,13 @@ import javax.xml.transform.stream.StreamSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class UnmarshalHelper {
+public final class UnmarshalHelper {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(UnmarshalHelper.class);
 
     private UnmarshalHelper() {
+        // not called
     }
 
     public static Car unmarshalError(File file) throws JAXBException {

@@ -13,12 +13,13 @@ import javax.xml.namespace.QName;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MarshalHelper {
+public final class MarshalHelper {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(MarshalHelper.class);
 
     private MarshalHelper() {
+        // not called
     }
 
     public static String marshalError(Car car) throws JAXBException {
