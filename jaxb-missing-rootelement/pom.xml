@@ -15,7 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.6</java.version>
 
-        <junit.version>4.11</junit.version>
+        <junit.version>4.12-beta-2</junit.version>
         <ch.qos.logback.version>1.1.2</ch.qos.logback.version>
         <slf4j.version>1.7.7</slf4j.version>
 
