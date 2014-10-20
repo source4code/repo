@@ -9,15 +9,15 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ProducerTest {
+public class UnidentifiedProducerTest {
 
-    private static Producer producer;
+    private static UnidentifiedProducer unidentifiedProducer;
     private static Consumer consumer;
 
     @BeforeClass
     public static void setUpBeforeClass() throws JMSException {
-        producer = new Producer();
-        producer.create("helloworld.q");
+        unidentifiedProducer = new UnidentifiedProducer();
+        unidentifiedProducer.create();
 
         consumer = new Consumer();
         consumer.create("helloworld.q");
@@ -25,14 +25,14 @@ public class ProducerTest {
 
     @AfterClass
     public static void tearDownAfterClass() throws JMSException {
-        producer.close();
+        unidentifiedProducer.close();
         consumer.close();
     }
 
     @Test
     public void testGetGreeting() {
         try {
-            producer.sendName("John", "Doe");
+            unidentifiedProducer.sendName("helloworld.q", "John", "Doe");
 
             String greeting = consumer.getGreeting(1000);
             assertEquals("Hello John Doe!", greeting);

@@ -25,7 +25,7 @@ public class Consumer {
     private Session session;
     private MessageConsumer messageConsumer;
 
-    public Consumer(String destinationName) throws JMSException {
+    public void create(String destinationName) throws JMSException {
 
         // create a Connection Factory
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
@@ -47,7 +47,7 @@ public class Consumer {
         connection.start();
     }
 
-    public void closeConnection() throws JMSException {
+    public void close() throws JMSException {
         connection.close();
     }
 
