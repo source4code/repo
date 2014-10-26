@@ -51,12 +51,12 @@ public class Consumer {
         connection.close();
     }
 
-    public String getGreeting(int timeOut) throws JMSException {
+    public String getGreeting(int timeout) throws JMSException {
 
         String greeting = NO_GREETING;
 
         // read a message from the queue destination
-        Message message = messageConsumer.receive(timeOut);
+        Message message = messageConsumer.receive(timeout);
 
         // check if a message was received
         if (message != null) {
