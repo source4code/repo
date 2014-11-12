@@ -42,7 +42,7 @@ public class SomeBeanTest {
 
     @Test
     public void testAddMessage() {
-        // create Capture instances for the clientId and FacesMessage parameters
+        // create Captor instances for the clientId and FacesMessage parameters
         // that will be added to the FacesContext
         ArgumentCaptor<String> clientIdCaptor = ArgumentCaptor
                 .forClass(String.class);
@@ -57,7 +57,7 @@ public class SomeBeanTest {
         verify(facesContext).addMessage(clientIdCaptor.capture(),
                 facesMessageCaptor.capture());
 
-        // check value of the clientId that was passed
+        // check the value of the clientId that was passed
         assertNull(clientIdCaptor.getValue());
 
         // retrieve the captured FacesMessage
