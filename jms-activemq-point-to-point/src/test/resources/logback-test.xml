@@ -31,7 +31,7 @@
         </encoder>
     </appender>
 
-    <logger name="info.source4code.jms" level="DEBUG" />
+    <logger name="info.source4code.jms.activemq.ptp" level="DEBUG" />
 
     <!-- ActiveMQ log level -->
     <logger name="org.apache.activemq" level="ERROR" />

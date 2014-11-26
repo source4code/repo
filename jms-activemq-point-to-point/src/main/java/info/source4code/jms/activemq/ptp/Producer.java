@@ -1,4 +1,4 @@
-package info.source4code.jms;
+package info.source4code.jms.activemq.ptp;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -23,7 +23,7 @@ public class Producer {
     private Session session;
     private MessageProducer messageProducer;
 
-    public Producer(String clientId, String destinationName)
+    public void create(String clientId, String destinationName)
             throws JMSException {
         this.clientId = clientId;
 
@@ -58,6 +58,6 @@ public class Producer {
         // send the message to the queue destination
         messageProducer.send(textMessage);
 
-        LOGGER.debug(clientId + ": producer sent message with text='{}'", text);
+        LOGGER.debug(clientId + ": sent message with text='{}'", text);
     }
 }

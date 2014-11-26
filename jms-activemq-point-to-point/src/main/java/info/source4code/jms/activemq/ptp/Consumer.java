@@ -1,4 +1,4 @@
-package info.source4code.jms;
+package info.source4code.jms.activemq.ptp;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
@@ -21,20 +21,18 @@ public class Consumer {
 
     private static String NO_GREETING = "no greeting";
 
-    private static String PREFETCH_POLICY = "?jms.prefetchPolicy.all=0";
-
     private String clientId;
     private Connection connection;
     private Session session;
     private MessageConsumer messageConsumer;
 
-    public Consumer(String clientId, String destinationName)
+    public void create(String clientId, String destinationName)
             throws JMSException {
         this.clientId = clientId;
 
         // create a Connection Factory
         ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(
-                ActiveMQConnection.DEFAULT_BROKER_URL + PREFETCH_POLICY);
+                ActiveMQConnection.DEFAULT_BROKER_URL);
 
         // create a Connection
         connection = connectionFactory.createConnection();
@@ -78,6 +76,8 @@ public class Consumer {
                 // acknowledge the successful processing of the message
                 message.acknowledge();
                 LOGGER.debug(clientId + ": message acknowledged");
+            } else {
+                LOGGER.debug(clientId + ": message not acknowledged");
             }
 
             // create greeting

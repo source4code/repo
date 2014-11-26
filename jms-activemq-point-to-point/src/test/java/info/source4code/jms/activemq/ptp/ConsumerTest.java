@@ -1,4 +1,4 @@
-package info.source4code.jms;
+package info.source4code.jms.activemq.ptp;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -20,25 +20,40 @@ public class ConsumerTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws JMSException, NamingException {
-        producerPointToPoint = new Producer("producer-pointtopoint",
-                "pointtopoint.q");
-        producerOnlyOneConsumer = new Producer("producer-onlyoneconsumer",
-                "onlyoneconsumer.q");
-        producerNoTimingDependencies = new Producer(
-                "producer-notimingdependencies", "notimingdependencies.q");
-        producerAcknowledgeProcessing = new Producer(
-                "producer-acknowledgeprocessing", "acknowledgeprocessing.q");
+        producerPointToPoint = new Producer();
+        producerPointToPoint.create("producer-pointtopoint", "pointtopoint.q");
 
-        consumerPointToPoint = new Consumer("consumer-pointtopoint",
-                "pointtopoint.q");
-        consumer1OnlyOneConsumer = new Consumer("consumer1-onlyoneconsumer",
+        producerOnlyOneConsumer = new Producer();
+        producerOnlyOneConsumer.create("producer-onlyoneconsumer",
                 "onlyoneconsumer.q");
-        consumer2OnlyOneConsumer = new Consumer("consumer2-onlyoneconsumer",
+
+        producerNoTimingDependencies = new Producer();
+        producerNoTimingDependencies.create("producer-notimingdependencies",
+                "notimingdependencies.q");
+
+        producerAcknowledgeProcessing = new Producer();
+        producerAcknowledgeProcessing.create("producer-acknowledgeprocessing",
+                "acknowledgeprocessing.q");
+
+        consumerPointToPoint = new Consumer();
+        consumerPointToPoint.create("consumer-pointtopoint", "pointtopoint.q");
+
+        consumer1OnlyOneConsumer = new Consumer();
+        consumer1OnlyOneConsumer.create("consumer1-onlyoneconsumer",
                 "onlyoneconsumer.q");
+
+        consumer2OnlyOneConsumer = new Consumer();
+        consumer2OnlyOneConsumer.create("consumer2-onlyoneconsumer",
+                "onlyoneconsumer.q");
+
         // consumerNoTimingDependencies
-        consumer1AcknowledgeProcessing = new Consumer(
+
+        consumer1AcknowledgeProcessing = new Consumer();
+        consumer1AcknowledgeProcessing.create(
                 "consumer1-acknowledgeprocessing", "acknowledgeprocessing.q");
-        consumer2AcknowledgeProcessing = new Consumer(
+
+        consumer2AcknowledgeProcessing = new Consumer();
+        consumer2AcknowledgeProcessing.create(
                 "consumer2-acknowledgeprocessing", "acknowledgeprocessing.q");
     }
 
@@ -95,7 +110,8 @@ public class ConsumerTest {
             producerNoTimingDependencies.sendName("Samwise", "Gamgee");
             // a receiver can fetch the message whether or not it was running
             // when the client sent the message
-            consumerNoTimingDependencies = new Consumer(
+            consumerNoTimingDependencies = new Consumer();
+            consumerNoTimingDependencies.create(
                     "consumer-notimingdependencies", "notimingdependencies.q");
 
             String greeting = consumerNoTimingDependencies.getGreeting(1000,
