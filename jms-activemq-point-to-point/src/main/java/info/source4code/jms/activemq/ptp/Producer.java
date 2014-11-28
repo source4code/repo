@@ -2,9 +2,9 @@ package info.source4code.jms.activemq.ptp;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.MessageProducer;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
@@ -23,8 +23,7 @@ public class Producer {
     private Session session;
     private MessageProducer messageProducer;
 
-    public void create(String clientId, String destinationName)
-            throws JMSException {
+    public void create(String clientId, String queueName) throws JMSException {
         this.clientId = clientId;
 
         // create a Connection Factory
@@ -38,11 +37,11 @@ public class Producer {
         // create a Session
         session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
-        // create the Destination to which messages will be sent
-        Destination destination = session.createQueue(destinationName);
+        // create the Queue to which messages will be sent
+        Queue queue = session.createQueue(queueName);
 
-        // create a Message Producer for sending messages
-        messageProducer = session.createProducer(destination);
+        // create a MessageProducer for sending messages
+        messageProducer = session.createProducer(queue);
     }
 
     public void closeConnection() throws JMSException {

@@ -2,10 +2,10 @@ package info.source4code.jms.activemq.ptp;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
-import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
+import javax.jms.Queue;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
@@ -26,8 +26,7 @@ public class Consumer {
     private Session session;
     private MessageConsumer messageConsumer;
 
-    public void create(String clientId, String destinationName)
-            throws JMSException {
+    public void create(String clientId, String queueName) throws JMSException {
         this.clientId = clientId;
 
         // create a Connection Factory
@@ -41,11 +40,11 @@ public class Consumer {
         // create a Session
         session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
 
-        // create the Destination from which messages will be received
-        Destination destination = session.createQueue(destinationName);
+        // create the Queue from which messages will be received
+        Queue queue = session.createQueue(queueName);
 
-        // create a Message Consumer for receiving messages
-        messageConsumer = session.createConsumer(destination);
+        // create a MessageConsumer for receiving messages
+        messageConsumer = session.createConsumer(queue);
 
         // start the connection in order to receive messages
         connection.start();
