@@ -19,7 +19,7 @@ public class Subscriber {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(Subscriber.class);
 
-    private static String NO_GREETING = "no greeting";
+    private static final String NO_GREETING = "no greeting";
 
     private String clientId;
     private Connection connection;

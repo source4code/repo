@@ -4,10 +4,10 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Message;
+import javax.jms.MessageConsumer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.Topic;
-import javax.jms.TopicSubscriber;
 
 import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
@@ -19,12 +19,12 @@ public class DurableSubscriber {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(DurableSubscriber.class);
 
-    private static String NO_GREETING = "no greeting";
+    private static final String NO_GREETING = "no greeting";
 
     private String clientId;
     private Connection connection;
     private Session session;
-    private TopicSubscriber topicSubscriber;
+    private MessageConsumer messageConsumer;
 
     private String subscriptionName;
 
@@ -48,7 +48,7 @@ public class DurableSubscriber {
         Topic topic = session.createTopic(topicName);
 
         // create a MessageConsumer for receiving messages
-        topicSubscriber = session.createDurableSubscriber(topic,
+        messageConsumer = session.createDurableSubscriber(topic,
                 subscriptionName);
 
         // start the connection in order to receive messages
@@ -56,7 +56,7 @@ public class DurableSubscriber {
     }
 
     public void removeDurableSubscriber() throws JMSException {
-        topicSubscriber.close();
+        messageConsumer.close();
         session.unsubscribe(subscriptionName);
     }
 
@@ -69,7 +69,7 @@ public class DurableSubscriber {
         String greeting = NO_GREETING;
 
         // read a message from the topic destination
-        Message message = topicSubscriber.receive(timeout);
+        Message message = messageConsumer.receive(timeout);
 
         // check if a message was received
         if (message != null) {

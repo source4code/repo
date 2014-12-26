@@ -48,6 +48,8 @@ public class SubscriberTest {
                 "subscriber1-nondurablesubscriber", "nondurablesubscriber.t");
 
         subscriber2NonDurableSubscriber = new Subscriber();
+        subscriber2NonDurableSubscriber.create(
+                "subscriber2-nondurablesubscriber", "nondurablesubscriber.t");
     }
 
     @AfterClass
@@ -98,10 +100,13 @@ public class SubscriberTest {
     @Test
     public void testNonDurableSubscriber() {
         try {
+            // nondurable subscriptions, will not receive messages sent while
+            // the subscribers are not active
+            subscriber2NonDurableSubscriber.closeConnection();
+
             publisherNonDurableSubscriber.sendName("Bilbo", "Baggins");
 
-            // subscriber must continue to be active in order for it to consume
-            // messages
+            // recreate a connection for the nondurable subscription
             subscriber2NonDurableSubscriber.create(
                     "subscriber2-nondurablesubscriber",
                     "nondurablesubscriber.t");

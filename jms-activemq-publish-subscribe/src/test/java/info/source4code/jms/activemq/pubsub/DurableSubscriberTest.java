@@ -56,7 +56,7 @@ public class DurableSubscriberTest {
     }
 
     @Test
-    public void testSend() {
+    public void testGetGreeting() {
         try {
             publisherPublishSubscribe.sendName("Peregrin", "Took");
 
@@ -72,7 +72,7 @@ public class DurableSubscriberTest {
     }
 
     @Test
-    public void testNonDurableSubscriber() {
+    public void testDurableSubscriber() {
         try {
             // durable subscriptions, receive messages sent while the
             // subscribers are not active
