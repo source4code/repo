@@ -2,15 +2,15 @@ package info.source4code.jaxb.model;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CarTest {
 
-    private static Car car;
+    private Car car;
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
+    @Before
+    public void setUp() throws Exception {
         car = new Car();
     }
 
