@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+    xmlns:sec="http://cxf.apache.org/configuration/security"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd ">
+
+    <!-- load the cxf extensions needed for the logging interceptors -->
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <!-- import the cxf logging configuration -->
+    <import resource="classpath:META-INF/spring/cxf-logging.xml" />
+
+    <jaxws:client id="helloWorldRequesterBean"
+        serviceClass="info.source4code.services.helloworld.HelloWorldPortType"
+        address="${helloworld.address}">
+    </jaxws:client>
+
+    <!-- <http-conf:conduit name="*.http-conduit"> -->
+    <http-conf:conduit
+        name="{http://source4code.info/services/helloworld}HelloWorld_PortTypePort.http-conduit">
+        <http-conf:authorization>
+            <sec:UserName>${requester.username}</sec:UserName>
+            <sec:Password>${requester.password}</sec:Password>
+            <sec:AuthorizationType>Basic</sec:AuthorizationType>
+        </http-conf:authorization>
+    </http-conf:conduit>
+
+</beans>
