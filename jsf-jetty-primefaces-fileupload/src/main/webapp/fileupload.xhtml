@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>File Upload</title>
+</h:head>
+
+<h:body>
+    <p:growl id="messages" showDetail="true" />
+
+    <h:form id="file-upload-form">
+        <p:panel header="Choose File(s) To Upload">
+
+            <p:fileUpload id="file-upload"
+                fileUploadListener="#{fileUploadController.handleFileUpload}"
+                mode="advanced" dragDropSupport="false" multiple="true"
+                update=":messages :uploaded-files-form:uploaded-files-table"
+                sizeLimit="100000"
+                fileLimit="#{fileUploadController.currentFileLimit}"
+                allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+
+        </p:panel>
+    </h:form>
+
+    <p:spacer height="20" />
+
+    <h:form id="uploaded-files-form">
+        <p:panel header="Upload ID: #{fileUploadController.uploadId}">
+
+            <p:dataTable id="uploaded-files-table" var="uploadedFile"
+                value="#{fileUploadController.uploadedFiles}"
+                emptyMessage="No files uploaded.">
+                <p:column headerText="Image" style="width:60px">
+                    <p:graphicImage value="#{fileUploadController.image}" width="50"
+                        height="50">
+                        <f:param name="uploadedFileId" value="#{uploadedFile.id}" />
+                    </p:graphicImage>
+                </p:column>
+
+                <p:column headerText="Name">
+                    <h:outputText value="#{uploadedFile.name}" />
+                </p:column>
+
+                <p:column headerText="Type">
+                    <h:outputText value="#{uploadedFile.contentType}" />
+                </p:column>
+
+                <p:column headerText="Size">
+                    <h:outputText value="#{uploadedFile.getSizeKB()} KB" />
+                </p:column>
+
+                <p:column style="width:40px">
+                    <p:commandButton
+                        update="uploaded-files-table :file-upload-form:file-upload :messages"
+                        action="#{fileUploadController.removeUploadedFile(uploadedFile.id)}"
+                        value="" style="width:36px;height:36px" icon="ui-icon-trash" />
+                </p:column>
+            </p:dataTable>
+
+            <h:panelGrid columns="1" style="margin:10px 0">
+                <p:commandButton
+                    action="#{fileUploadController.submitUploadedFiles()}"
+                    update=":messages" value="Submit Files" icon="ui-icon-check">
+                </p:commandButton>
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
