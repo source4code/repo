@@ -8,13 +8,13 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class UploadedFileTest {
+public class UploadFileTest {
 
-    UploadedFile uploadedFile;
+    UploadFile uploadedFile;
 
     @Before
     public void setUp() throws Exception {
-        uploadedFile = new UploadedFile("test.png", "image/png", 1024,
+        uploadedFile = new UploadFile("test.png", "image/png", 1024,
                 "no_image".getBytes());
     }
 

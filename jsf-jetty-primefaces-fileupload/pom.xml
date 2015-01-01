@@ -17,7 +17,11 @@
 
         <slf4j.version>1.7.9</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.11</junit.version>
+        <mockito.version>1.10.8</mockito.version>
+        <powermock.version>1.5.6</powermock.version>
+        <el.version>2.2.1-b04</el.version>
+
         <servlet.version>3.0.1</servlet.version>
         <jsf.version>2.2.9</jsf.version>
         <primefaces.version>5.1</primefaces.version>
@@ -44,6 +48,33 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- Mockito -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- PowerMock -->
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+            <version>${powermock.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- EL (Unified Expression Language) -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>${el.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- Servlet -->

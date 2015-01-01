@@ -3,7 +3,7 @@ package info.source4code.jsf.primefaces;
 import java.io.Serializable;
 import java.util.UUID;
 
-public class UploadedFile implements Serializable {
+public class UploadFile implements Serializable {
 
     private static final long serialVersionUID = -204227549089956478L;
 
@@ -13,7 +13,7 @@ public class UploadedFile implements Serializable {
     private long size;
     private byte[] contents;
 
-    public UploadedFile(String name, String contentType, long size,
+    public UploadFile(String name, String contentType, long size,
             byte[] contents) {
 
         id = UUID.randomUUID().toString();

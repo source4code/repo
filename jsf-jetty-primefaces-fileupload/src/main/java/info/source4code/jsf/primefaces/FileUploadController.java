@@ -2,7 +2,6 @@ package info.source4code.jsf.primefaces;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,20 +38,20 @@ public class FileUploadController implements Serializable {
     private static final String FILE_SUBMIT_PATH = "target/tmp/flags/";
     private static final String TEMP_EXTENSION = "_tmp/";
 
-    private List<UploadedFile> uploadedFiles;
+    private List<UploadFile> uploadedFiles;
     private String uploadId;
     private int currentFileLimit;
 
     @PostConstruct
     public void init() {
-        uploadedFiles = new ArrayList<UploadedFile>();
+        uploadedFiles = new ArrayList<UploadFile>();
         uploadId = UUID.randomUUID().toString();
         currentFileLimit = FILE_LIMIT;
 
         LOGGER.info("fileupload initialized with uploadId: {}", uploadId);
     }
 
-    public List<UploadedFile> getUploadedFiles() {
+    public List<UploadFile> getUploadedFiles() {
         return uploadedFiles;
     }
 
@@ -69,7 +68,7 @@ public class FileUploadController implements Serializable {
             byte[] contents = IOUtils.toByteArray(event.getFile()
                     .getInputstream());
 
-            UploadedFile uploadedFile = new UploadedFile(event.getFile()
+            UploadFile uploadedFile = new UploadFile(event.getFile()
                     .getFileName(), event.getFile().getContentType(), event
                     .getFile().getSize(), contents);
             uploadedFiles.add(uploadedFile);
@@ -81,8 +80,8 @@ public class FileUploadController implements Serializable {
             message = new FacesMessage(FacesMessage.SEVERITY_INFO,
                     "File uploaded", event.getFile().getFileName()
                             + " is successfuly uploaded.");
-        } catch (IOException ioException) {
-            LOGGER.error("handleFileUpload", ioException);
+        } catch (Exception exception) {
+            LOGGER.error("handleFileUpload", exception);
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Upload Failed", event.getFile().getFileName()
                             + " is not uploaded.");
@@ -92,10 +91,10 @@ public class FileUploadController implements Serializable {
     }
 
     public void removeUploadedFile(String id) {
-        // find the associated UploadedFile
-        UploadedFile uploadedFile = findUploadedFile(id);
+        try {
+            // find the associated UploadedFile
+            UploadFile uploadedFile = findUploadedFile(id);
 
-        if (uploadedFile != null) {
             uploadedFiles.remove(uploadedFile);
 
             // per removed file increase the currentFileLimit
@@ -106,7 +105,13 @@ public class FileUploadController implements Serializable {
                     "File removed", uploadedFile.getName()
                             + " is successfuly removed.");
             FacesContext.getCurrentInstance().addMessage(null, message);
+        } catch (Exception e) {
+            LOGGER.error("UploadFile could not be removed", e);
+            FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN,
+                    "File not found", id + " not found");
+            FacesContext.getCurrentInstance().addMessage(null, message);
         }
+
     }
 
     public String submitUploadedFiles() {
@@ -119,9 +124,9 @@ public class FileUploadController implements Serializable {
                 String targetDirectory = FILE_SUBMIT_PATH + uploadId;
                 int index = 1;
 
-                Iterator<UploadedFile> iterator = uploadedFiles.iterator();
+                Iterator<UploadFile> iterator = uploadedFiles.iterator();
                 while (iterator.hasNext()) {
-                    UploadedFile uploadedFile = (UploadedFile) iterator.next();
+                    UploadFile uploadedFile = (UploadFile) iterator.next();
 
                     ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(
                             uploadedFile.getContents());
@@ -144,9 +149,8 @@ public class FileUploadController implements Serializable {
                 // reset before redirect
                 init();
 
-            } catch (IOException ioException) {
-                LOGGER.error("not able to submit files", ioException);
-
+            } catch (Exception exception) {
+                LOGGER.error("not able to submit files", exception);
                 FacesMessage message = new FacesMessage(
                         FacesMessage.SEVERITY_ERROR, "Error occured",
                         "File(s) have not been submitted!");
@@ -163,18 +167,16 @@ public class FileUploadController implements Serializable {
     }
 
     public String getCurrentFileLimit() {
-        int result = currentFileLimit - uploadedFiles.size();
-
         // avoid 0 as this means an unlimited number of files can be uploaded
-        if (result <= 0) {
-            result = -1;
+        if (currentFileLimit <= 0) {
+            currentFileLimit = -1;
         }
 
-        LOGGER.debug("current file limit: {}", result);
-        return Integer.toString(result);
+        LOGGER.debug("current file limit: {}", currentFileLimit);
+        return Integer.toString(currentFileLimit);
     }
 
-    public StreamedContent getImage() throws IOException {
+    public StreamedContent getImage() {
         FacesContext context = FacesContext.getCurrentInstance();
 
         if (context.getCurrentPhaseId() == PhaseId.RENDER_RESPONSE) {
@@ -188,25 +190,31 @@ public class FileUploadController implements Serializable {
              * browser is requesting the image, return a real StreamedContent
              * with the image
              */
+            try {
+                // retrieve the id from the request
+                String id = context.getExternalContext()
+                        .getRequestParameterMap().get("uploadedFileId");
+                // find the associated UploadedFile
+                UploadFile uploadedFile = findUploadedFile(id);
 
-            // retrieve the id from the request
-            String id = context.getExternalContext().getRequestParameterMap()
-                    .get("uploadedFileId");
-            // find the associated UploadedFile
-            UploadedFile uploadedFile = findUploadedFile(id);
-
-            // do not use InputStream as it is not Serializable
-            return new DefaultStreamedContent(new ByteArrayInputStream(
-                    uploadedFile.getContents()), uploadedFile.getContentType());
+                // do not use InputStream as it is not serializable
+                return new DefaultStreamedContent(new ByteArrayInputStream(
+                        uploadedFile.getContents()),
+                        uploadedFile.getContentType());
+            } catch (Exception e) {
+                LOGGER.error("UploadFile content could not be returned", e);
+                return new DefaultStreamedContent();
+            }
         }
     }
 
-    private UploadedFile findUploadedFile(String id) {
-        UploadedFile result = null;
+    private UploadFile findUploadedFile(String id) {
+        UploadFile result = null;
 
-        Iterator<UploadedFile> iterator = uploadedFiles.iterator();
+        // lookup the UploadedFile
+        Iterator<UploadFile> iterator = uploadedFiles.iterator();
         while (iterator.hasNext()) {
-            UploadedFile uploadedFile = (UploadedFile) iterator.next();
+            UploadFile uploadedFile = (UploadFile) iterator.next();
 
             if (id.equals(uploadedFile.getId())) {
                 result = uploadedFile;
@@ -214,6 +222,12 @@ public class FileUploadController implements Serializable {
             }
         }
 
-        return result;
+        // check if the UploadedFile was found
+        if (result == null) {
+            LOGGER.warn("no UploadFile found for ID: ", id);
+            throw new NullPointerException("no UploadFile found");
+        } else {
+            return result;
+        }
     }
 }
