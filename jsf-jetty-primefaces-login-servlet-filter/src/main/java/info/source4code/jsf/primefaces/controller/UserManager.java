@@ -72,7 +72,8 @@ public class UserManager {
         User result = null;
 
         // code block to be replaced with actual retrieval of user
-        if ("admin".equalsIgnoreCase(userId) && "1234".equals(password)) {
+        if ("john.doe".equalsIgnoreCase(userId)
+                && "1234".equals(password)) {
             result = new User(userId, "John", "Doe");
         }
 

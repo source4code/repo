@@ -41,7 +41,7 @@ public class UserManagerTest {
 
     @Test
     public void testLoginSucces() {
-        userManager.setUserId("admin");
+        userManager.setUserId("john.doe");
         userManager.setUserPassword("1234");
 
         assertEquals(UserManager.HOME_PAGE_REDIRECT,
@@ -59,7 +59,7 @@ public class UserManagerTest {
 
     @Test
     public void testLoginFailIncorrectPassword() {
-        userManager.setUserId("admin");
+        userManager.setUserId("john.doe");
         // incorrect password
         userManager.setUserPassword("5678");
 
@@ -78,7 +78,7 @@ public class UserManagerTest {
 
     @Test
     public void testIsLoggedInTrue() {
-        userManager.setUserId("admin");
+        userManager.setUserId("john.doe");
         userManager.setUserPassword("1234");
         userManager.login();
 
@@ -87,7 +87,7 @@ public class UserManagerTest {
 
     @Test
     public void testIsLoggedInForwardHomeTrue() {
-        userManager.setUserId("admin");
+        userManager.setUserId("john.doe");
         userManager.setUserPassword("1234");
         userManager.login();
 
@@ -121,7 +121,7 @@ public class UserManagerTest {
 
     @Test
     public void testGetUser() {
-        userManager.setUserId("admin");
+        userManager.setUserId("john.doe");
         userManager.setUserPassword("1234");
         userManager.login();
 
