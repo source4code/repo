@@ -1,11 +1,11 @@
-package info.source4code.jsf.primefaces;
+package info.source4code.jsf.primefaces.model;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 public class UploadFile implements Serializable {
 
-    private static final long serialVersionUID = -204227549089956478L;
+    private static final long serialVersionUID = 1L;
 
     private String id;
     private String name;
@@ -32,16 +32,33 @@ public class UploadFile implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getContentType() {
         return contentType;
     }
 
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
     public long getSize() {
         return size;
+
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     public byte[] getContents() {
         return contents;
+    }
+
+    public void setContents(byte[] contents) {
+        this.contents = contents;
     }
 
     public long getSizeKB() {
@@ -50,7 +67,7 @@ public class UploadFile implements Serializable {
 
     public String toString() {
         return "UploadedFile [" + "id=" + id + ", name=" + name
-                + ", contentType=" + contentType + ", size=" + getSizeKB()
-                + "KB]";
+                + ", contentType=" + contentType + ", size="
+                + getSizeKB() + "KB]";
     }
 }

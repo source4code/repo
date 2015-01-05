@@ -1,8 +1,9 @@
-package info.source4code.jsf.primefaces;
+package info.source4code.jsf.primefaces.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -32,9 +33,9 @@ import org.primefaces.model.NativeUploadedFile;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest({ FacesContext.class })
-public class FileUploadControllerTest {
+public class FileUploadManagerTest {
 
-    private FileUploadController fileUploadController;
+    private FileUploadManager fileUploadManager;
 
     @Mock
     private FacesContext facesContext;
@@ -43,52 +44,43 @@ public class FileUploadControllerTest {
     @Mock
     private UIComponent uiComponent;
     @Mock
-    private NativeUploadedFile nativeUploadedFile,
-            nativeUploadedFileIOException;
-    @Mock
-    private UploadFile uploadFileIOException;
-    @Mock
-    FileUploadEvent event;
+    private NativeUploadedFile nativeUploadedFile;
 
     @Before
     public void setUp() throws Exception {
-        fileUploadController = new FileUploadController();
-        fileUploadController.init();
+        fileUploadManager = new FileUploadManager();
+        fileUploadManager.init();
 
-        InputStream inputStream = new ByteArrayInputStream("image1".getBytes());
+        InputStream inputStream = new ByteArrayInputStream(
+                "image1".getBytes());
+
         // nativeUploadedFile
-        when(nativeUploadedFile.getContentType()).thenReturn("image/png");
-        when(nativeUploadedFile.getInputstream()).thenReturn(inputStream);
-        // nativeUploadedFileIOException
-        when(nativeUploadedFileIOException.getInputstream()).thenThrow(
-                new IOException());
-
-        // uploadFileIOException
-        when(uploadFileIOException.getContents()).thenThrow(
-                new RuntimeException());
+        when(nativeUploadedFile.getContentType()).thenReturn(
+                "image/png");
+        when(nativeUploadedFile.getInputstream()).thenReturn(
+                inputStream);
 
         PowerMockito.mockStatic(FacesContext.class);
-        when(FacesContext.getCurrentInstance()).thenReturn(facesContext);
+        when(FacesContext.getCurrentInstance())
+                .thenReturn(facesContext);
     }
 
     @Test
-    public void testGetUploadedFilesInit() {
-        assertTrue(fileUploadController.getUploadedFiles().isEmpty());
-    }
-
-    @Test
-    public void testGetUploadIdInit() {
-        assertTrue(null != fileUploadController.getUploadId());
+    public void testInit() {
+        assertNotNull(fileUploadManager.getUploadId());
+        assertTrue(fileUploadManager.getUploadedFiles().isEmpty());
+        assertEquals(Integer.toString(FileUploadManager.FILE_LIMIT),
+                fileUploadManager.getCurrentFileLimit());
     }
 
     @Test
     public void testHandleFileUploadOne() {
         FileUploadEvent event = new FileUploadEvent(uiComponent,
                 nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
+        fileUploadManager.handleFileUpload(event);
 
-        assertEquals(1, fileUploadController.getUploadedFiles().size());
-        assertEquals("2", fileUploadController.getCurrentFileLimit());
+        assertEquals(1, fileUploadManager.getUploadedFiles().size());
+        assertEquals("2", fileUploadManager.getCurrentFileLimit());
     }
 
     @Test
@@ -96,117 +88,115 @@ public class FileUploadControllerTest {
         FileUploadEvent event = new FileUploadEvent(uiComponent,
                 nativeUploadedFile);
         for (int i = 0; i < 3; i++) {
-            fileUploadController.handleFileUpload(event);
+            fileUploadManager.handleFileUpload(event);
         }
 
-        assertEquals(3, fileUploadController.getUploadedFiles().size());
-        assertEquals("-1", fileUploadController.getCurrentFileLimit());
+        assertEquals(3, fileUploadManager.getUploadedFiles().size());
+        assertEquals("-1", fileUploadManager.getCurrentFileLimit());
     }
 
     @Test
     public void testHandleFileUploadError() {
-        FileUploadEvent event = new FileUploadEvent(uiComponent,
-                nativeUploadedFileIOException);
-        fileUploadController.handleFileUpload(event);
+        try {
+            when(nativeUploadedFile.getInputstream()).thenThrow(
+                    new IOException());
 
-        assertEquals("3", fileUploadController.getCurrentFileLimit());
+            FileUploadEvent event = new FileUploadEvent(uiComponent,
+                    nativeUploadedFile);
+            fileUploadManager.handleFileUpload(event);
+
+            assertEquals(0, fileUploadManager.getUploadedFiles().size());
+            assertEquals("3", fileUploadManager.getCurrentFileLimit());
+        } catch (IOException ioException) {
+            fail("no exception should be thrown");
+        }
     }
 
     @Test
-    public void testRemoveUploadedFileNone() {
-        fileUploadController.removeUploadedFile("123");
+    public void testHandleFileRemoval() {
+        FileUploadEvent event = new FileUploadEvent(uiComponent,
+                nativeUploadedFile);
+        fileUploadManager.handleFileUpload(event);
+
+        fileUploadManager.handleFileRemoval(fileUploadManager
+                .getUploadedFiles().get(0).getId());
+        verify(facesContext, times(2)).addMessage(any(String.class),
+                any(FacesMessage.class));
+    }
+
+    @Test
+    public void testHandleFileRemovalNotFound() {
+        fileUploadManager.handleFileRemoval("123");
 
         verify(facesContext, times(1)).addMessage(any(String.class),
                 any(FacesMessage.class));
     }
 
     @Test
-    public void testRemoveUploadedFile() {
+    public void testHandleFileSubmit() {
         FileUploadEvent event = new FileUploadEvent(uiComponent,
                 nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
-        fileUploadController.removeUploadedFile(fileUploadController
-                .getUploadedFiles().get(0).getId());
+        fileUploadManager.handleFileUpload(event);
 
-        verify(facesContext, times(2)).addMessage(any(String.class),
-                any(FacesMessage.class));
+        assertEquals("submitted?faces-redirect=true&uploadId="
+                + fileUploadManager.getUploadId(),
+                fileUploadManager.handleFileSubmit());
     }
 
     @Test
-    public void testRemoveUploadedFileNotFound() {
-        FileUploadEvent event = new FileUploadEvent(uiComponent,
-                nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
-        fileUploadController.removeUploadedFile("123");
-
-        verify(facesContext, times(2)).addMessage(any(String.class),
-                any(FacesMessage.class));
-    }
-
-    @Test
-    public void testSubmitUploadedFilesNone() {
-        assertEquals("", fileUploadController.submitUploadedFiles());
+    public void testHandleFileSubmitNone() {
+        assertEquals("", fileUploadManager.handleFileSubmit());
         verify(facesContext).addMessage(any(String.class),
                 any(FacesMessage.class));
     }
 
     @Test
-    public void testSubmitUploadedFiles() {
-        FileUploadEvent event = new FileUploadEvent(uiComponent,
-                nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
+    public void testHandleFileSubmitError() {
+        when(uploadFileIOException.getContents()).thenThrow(
+                new IOException());
 
-        assertEquals("submitted?faces-redirect=true&uploadId="
-                + fileUploadController.getUploadId(),
-                fileUploadController.submitUploadedFiles());
-    }
+        fileUploadManager.getUploadedFiles().add(0,
+                uploadFileIOException);
 
-    @Test
-    public void testSubmitUploadedFilesError() {
-        FileUploadEvent event = new FileUploadEvent(uiComponent,
-                nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
-        fileUploadController.getUploadedFiles().remove(0);
-        fileUploadController.getUploadedFiles().add(0, uploadFileIOException);
-
-        assertEquals("", fileUploadController.submitUploadedFiles());
+        assertEquals("", fileUploadManager.handleFileSubmit());
         verify(facesContext, times(2)).addMessage(any(String.class),
                 any(FacesMessage.class));
     }
 
     @Test
     public void testGetCurrentFileLimitInit() {
-        assertEquals("3", fileUploadController.getCurrentFileLimit());
+        assertEquals("3", fileUploadManager.getCurrentFileLimit());
     }
 
     @Test
     public void testGetImageFileRenderResponse() {
         FileUploadEvent event = new FileUploadEvent(uiComponent,
                 nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
+        fileUploadManager.handleFileUpload(event);
 
         when(facesContext.getCurrentPhaseId()).thenReturn(
                 PhaseId.RENDER_RESPONSE);
 
-        assertNotNull(fileUploadController.getImage());
+        assertNotNull(fileUploadManager.getImage());
     }
 
     @Test
     public void testGetImageFile() {
         FileUploadEvent event = new FileUploadEvent(uiComponent,
                 nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
+        fileUploadManager.handleFileUpload(event);
 
         Map<String, String> requestParameterMap = new HashMap<String, String>();
-        requestParameterMap.put("uploadedFileId", fileUploadController
+        requestParameterMap.put("uploadedFileId", fileUploadManager
                 .getUploadedFiles().get(0).getId());
 
         when(facesContext.getCurrentPhaseId()).thenReturn(null);
-        when(facesContext.getExternalContext()).thenReturn(externalContext);
+        when(facesContext.getExternalContext()).thenReturn(
+                externalContext);
         when(externalContext.getRequestParameterMap()).thenReturn(
                 requestParameterMap);
 
-        assertEquals("image/png", fileUploadController.getImage()
+        assertEquals("image/png", fileUploadManager.getImage()
                 .getContentType());
     }
 
@@ -214,13 +204,14 @@ public class FileUploadControllerTest {
     public void testGetImageFileError() {
         FileUploadEvent event = new FileUploadEvent(uiComponent,
                 nativeUploadedFile);
-        fileUploadController.handleFileUpload(event);
+        fileUploadManager.handleFileUpload(event);
 
         when(facesContext.getCurrentPhaseId()).thenReturn(null);
-        when(facesContext.getExternalContext()).thenReturn(externalContext);
+        when(facesContext.getExternalContext()).thenReturn(
+                externalContext);
         when(externalContext.getRequestParameterMap()).thenThrow(
                 new RuntimeException());
 
-        assertNotNull(fileUploadController.getImage());
+        assertNotNull(fileUploadManager.getImage());
     }
 }

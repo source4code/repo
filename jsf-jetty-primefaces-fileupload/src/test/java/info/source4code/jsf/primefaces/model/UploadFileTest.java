@@ -1,4 +1,4 @@
-package info.source4code.jsf.primefaces;
+package info.source4code.jsf.primefaces.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -10,10 +10,10 @@ import org.junit.Test;
 
 public class UploadFileTest {
 
-    UploadFile uploadedFile;
+    private UploadFile uploadedFile;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         uploadedFile = new UploadFile("test.png", "image/png", 1024,
                 "no_image".getBytes());
     }
