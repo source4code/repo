@@ -17,11 +17,11 @@
         <p:panel header="Choose File(s) To Upload">
 
             <p:fileUpload id="file-upload"
-                fileUploadListener="#{fileUploadController.handleFileUpload}"
+                fileUploadListener="#{fileUploadManager.handleFileUpload}"
                 mode="advanced" dragDropSupport="false" multiple="true"
                 update=":messages :uploaded-files-form:uploaded-files-table"
                 sizeLimit="100000"
-                fileLimit="#{fileUploadController.currentFileLimit}"
+                fileLimit="#{fileUploadManager.currentFileLimit}"
                 allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
 
         </p:panel>
@@ -30,15 +30,16 @@
     <p:spacer height="20" />
 
     <h:form id="uploaded-files-form">
-        <p:panel header="Upload ID: #{fileUploadController.uploadId}">
+        <p:panel header="Upload ID: #{fileUploadManager.uploadId}">
 
             <p:dataTable id="uploaded-files-table" var="uploadedFile"
-                value="#{fileUploadController.uploadedFiles}"
+                value="#{fileUploadManager.uploadedFiles}"
                 emptyMessage="No files uploaded.">
                 <p:column headerText="Image" style="width:60px">
-                    <p:graphicImage value="#{fileUploadController.image}" width="50"
-                        height="50">
-                        <f:param name="uploadedFileId" value="#{uploadedFile.id}" />
+                    <p:graphicImage value="#{fileUploadManager.image}"
+                        width="50" height="50">
+                        <f:param name="uploadedFileId"
+                            value="#{uploadedFile.id}" />
                     </p:graphicImage>
                 </p:column>
 
@@ -57,15 +58,17 @@
                 <p:column style="width:40px">
                     <p:commandButton
                         update="uploaded-files-table :file-upload-form:file-upload :messages"
-                        action="#{fileUploadController.removeUploadedFile(uploadedFile.id)}"
-                        value="" style="width:36px;height:36px" icon="ui-icon-trash" />
+                        action="#{fileUploadManager.handleFileRemoval(uploadedFile.id)}"
+                        value="" style="width:36px;height:36px"
+                        icon="ui-icon-trash" />
                 </p:column>
             </p:dataTable>
 
             <h:panelGrid columns="1" style="margin:10px 0">
                 <p:commandButton
-                    action="#{fileUploadController.submitUploadedFiles()}"
-                    update=":messages" value="Submit Files" icon="ui-icon-check">
+                    action="#{fileUploadManager.handleFileSubmit()}"
+                    update=":messages" value="Submit Files"
+                    icon="ui-icon-check">
                 </p:commandButton>
             </h:panelGrid>
         </p:panel>

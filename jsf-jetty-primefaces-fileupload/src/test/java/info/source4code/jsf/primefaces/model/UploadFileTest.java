@@ -14,28 +14,32 @@ public class UploadFileTest {
 
     @Before
     public void setUp() {
-        uploadedFile = new UploadFile("test.png", "image/png", 1024,
+        uploadedFile = new UploadFile("test.png", "image/jpeg", 1024,
                 "no_image".getBytes());
     }
 
     @Test
     public void testGetName() {
-        assertEquals("test.png", uploadedFile.getName());
+        uploadedFile.setName("flag.png");
+        assertEquals("flag.png", uploadedFile.getName());
     }
 
     @Test
     public void testGetContentType() {
+        uploadedFile.setContentType("image/png");
         assertEquals("image/png", uploadedFile.getContentType());
     }
 
     @Test
     public void testGetSize() {
-        assertEquals(1024, uploadedFile.getSize());
+        uploadedFile.setSize(2048);
+        assertEquals(2048, uploadedFile.getSize());
     }
 
     @Test
     public void testGetContents() {
-        assertTrue(Arrays.equals("no_image".getBytes(),
+        uploadedFile.setContents("image".getBytes());
+        assertTrue(Arrays.equals("image".getBytes(),
                 uploadedFile.getContents()));
     }
 
@@ -48,7 +52,7 @@ public class UploadFileTest {
     public void testToString() {
         String id = uploadedFile.getId();
         assertEquals("UploadedFile [id=" + id
-                + ", name=test.png, contentType=image/png, size=1KB]",
+                + ", name=test.png, contentType=image/jpeg, size=1KB]",
                 uploadedFile.toString());
     }
 }

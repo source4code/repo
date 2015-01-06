@@ -176,7 +176,7 @@ public class FileUploadManager implements Serializable {
             FacesContext.getCurrentInstance().addMessage(
                     null,
                     new FacesMessage(FacesMessage.SEVERITY_WARN,
-                            "Submit failed",
+                            "No submit",
                             "No file(s) have been uploaded"));
         }
 
@@ -257,7 +257,6 @@ public class FileUploadManager implements Serializable {
 
         public UploadFileNotFoundException(String message) {
             super(message);
-            // TODO Auto-generated constructor stub
         }
     }
 }

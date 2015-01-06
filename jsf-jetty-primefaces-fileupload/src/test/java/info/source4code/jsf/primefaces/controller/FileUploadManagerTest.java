@@ -151,19 +151,6 @@ public class FileUploadManagerTest {
     }
 
     @Test
-    public void testHandleFileSubmitError() {
-        when(uploadFileIOException.getContents()).thenThrow(
-                new IOException());
-
-        fileUploadManager.getUploadedFiles().add(0,
-                uploadFileIOException);
-
-        assertEquals("", fileUploadManager.handleFileSubmit());
-        verify(facesContext, times(2)).addMessage(any(String.class),
-                any(FacesMessage.class));
-    }
-
-    @Test
     public void testGetCurrentFileLimitInit() {
         assertEquals("3", fileUploadManager.getCurrentFileLimit());
     }
@@ -206,11 +193,14 @@ public class FileUploadManagerTest {
                 nativeUploadedFile);
         fileUploadManager.handleFileUpload(event);
 
+        Map<String, String> requestParameterMap = new HashMap<String, String>();
+        requestParameterMap.put("uploadedFileId", "123");
+
         when(facesContext.getCurrentPhaseId()).thenReturn(null);
         when(facesContext.getExternalContext()).thenReturn(
                 externalContext);
-        when(externalContext.getRequestParameterMap()).thenThrow(
-                new RuntimeException());
+        when(externalContext.getRequestParameterMap()).thenReturn(
+                requestParameterMap);
 
         assertNotNull(fileUploadManager.getImage());
     }
