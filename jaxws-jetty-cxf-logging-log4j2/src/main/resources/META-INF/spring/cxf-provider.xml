@@ -8,9 +8,6 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
-    <!-- load the extensions needed for the cxf provided interceptors/features -->
-    <import resource="classpath:META-INF/cxf/cxf.xml" />
-
     <jaxws:endpoint id="helloWorldProviderBean"
         implementor="info.source4code.soap.http.cxf.HelloWorldImpl"
         address="/helloworld">
