@@ -16,10 +16,10 @@ public class HelloWorldClient {
             .getLogger(HelloWorldClient.class);
 
     @Autowired
-    private HelloWorldPortType helloWorldPortType;
+    private HelloWorldPortType helloWorldRequesterBean;
 
     public String sayHello(Person person) {
-        Greeting greeting = helloWorldPortType.sayHello(person);
+        Greeting greeting = helloWorldRequesterBean.sayHello(person);
 
         String result = greeting.getText();
         LOGGER.info("result={}", result);
