@@ -3,12 +3,12 @@
 
     <!-- PROPERTIES -->
     <property name="layout" value="%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n" />
-    <property name="logFile" value="jaxws-jetty-cxf-logging.log" />
-    <property name="logFile-ws" value="jaxws-jetty-cxf-logging-ws.log" />
+    <property name="logFile" value="jaxws-jetty-cxf-logging" />
+    <property name="logFile-ws" value="jaxws-jetty-cxf-logging-ws" />
 
     <!-- APPENDERS -->
     <appender name="APP_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <File>${logFile}</File>
+        <File>${logFile}.log</File>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logFile}.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
@@ -19,7 +19,7 @@
     </appender>
 
     <appender name="WS_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${logFile-ws}</file>
+        <file>${logFile-ws}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logFile-ws}.%d{yyyy-MM-dd}.log</fileNamePattern>
             <maxHistory>30</maxHistory>
