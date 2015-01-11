@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <jaxws:endpoint id="helloWorldInterceptorSecuredProviderBean"
+        implementor="info.source4code.soap.http.cxf.HelloWorldImpl"
+        address="/gzip/helloworld">
+    </jaxws:endpoint>
+
+    <!-- GZIP feature that will gzip all received/sent messages -->
+    <bean id="gZIPFeature" class="org.apache.cxf.transport.common.gzip.GZIPFeature">
+        <!-- if required threshold and force properties can be set -->
+        <!-- <property name="threshold" value="1024" /> -->
+        <!-- <property name="force" value="false" /> -->
+    </bean>
+
+    <bean id="loggingFeature" class="org.apache.cxf.feature.LoggingFeature">
+        <property name="prettyLogging" value="true" />
+    </bean>
+
+    <!-- add the GZIP feature to the bus -->
+    <cxf:bus>
+        <cxf:features>
+            <ref bean="loggingFeature" />
+            <ref bean="gZIPFeature" />
+        </cxf:features>
+    </cxf:bus>
+
+</beans>
