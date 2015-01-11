@@ -8,31 +8,30 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>JAX-WS - CXF contract first Hello World web service using Jetty</name>
-    <url>http://www.source4code.info/2014/08/jax-ws-cxf-contract-first-hello-world.html</url>
+    <name>JAX-WS - CXF contract first Hello World web service using Jetty and Maven</name>
+    <url>http://www.source4code.info/2014/08/jaxws-cxf-contract-first-hello-world-jetty-maven.html</url>
+
+    <prerequisites>
+        <maven>3.0</maven>
+    </prerequisites>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.6</java.version>
 
-        <slf4j.version>1.7.7</slf4j.version>
+        <slf4j.version>1.7.10</slf4j.version>
         <logback.version>1.1.2</logback.version>
-        <junit.version>4.12-beta-2</junit.version>
-        <cxf.version>3.0.1</cxf.version>
-        <spring.version>4.1.1.RELEASE</spring.version>
+        <junit.version>4.12</junit.version>
+        <cxf.version>3.0.3</cxf.version>
+        <spring.version>4.1.4.RELEASE</spring.version>
 
         <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
-        <jetty-maven-plugin.version>8.1.14.v20131031</jetty-maven-plugin.version>
-        <maven-failsafe-plugin.version>2.6</maven-failsafe-plugin.version>
+        <jetty-maven-plugin.version>8.1.16.v20140903</jetty-maven-plugin.version>
+        <maven-failsafe-plugin.version>2.17</maven-failsafe-plugin.version>
     </properties>
 
     <dependencies>
         <!-- Logging -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>

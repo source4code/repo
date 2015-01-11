@@ -7,7 +7,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:client id="helloworldRequesterBean"
-        serviceClass="info.source4code.wsdl.helloworld.HelloWorldPort"
+        serviceClass="info.source4code.services.helloworld.HelloWorldPortType"
         address="${helloworld.address}">
     </jaxws:client>
 

@@ -1,14 +1,14 @@
 package info.source4code.soap.http.cxf;
 
-import info.source4code.wsdl.helloworld.Greeting;
-import info.source4code.wsdl.helloworld.HelloWorldPort;
-import info.source4code.wsdl.helloworld.ObjectFactory;
-import info.source4code.wsdl.helloworld.Person;
+import info.source4code.services.helloworld.Greeting;
+import info.source4code.services.helloworld.HelloWorldPortType;
+import info.source4code.services.helloworld.ObjectFactory;
+import info.source4code.services.helloworld.Person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class HelloWorldImpl implements HelloWorldPort {
+public class HelloWorldImpl implements HelloWorldPortType {
 
     private static final Logger LOGGER = LoggerFactory
             .getLogger(HelloWorldImpl.class);

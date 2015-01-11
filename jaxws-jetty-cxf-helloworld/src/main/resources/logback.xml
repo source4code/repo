@@ -2,28 +2,23 @@
 <configuration scan="true" scanPeriod="60 seconds">
 
     <!-- PROPERTIES -->
-    <property name="logFile" value="jaxws-jetty-cxf-helloworld.log" />
+    <property name="layout" value="%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n" />
+    <property name="logFile" value="jaxws-jetty-cxf-helloworld" />
 
-    <!-- LOGBACK APPENDERS -->
-    <appender name="APP_LOG_FILE"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-        <File>${logFile}</File>
-
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <!-- APPENDERS -->
+    <appender name="APP_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logFile}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logFile}.%d{yyyy-MM-dd}.log
             </fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
-                %m%n
-            </pattern>
+            <pattern>${layout}</pattern>
         </encoder>
     </appender>
 
+    <!-- LOGGERS -->
     <logger name="info.source4code.soap.http.cxf" level="INFO" />
 
     <logger name="org.springframework" level="WARN" />
@@ -35,3 +30,4 @@
     </root>
 
 </configuration>
+ 

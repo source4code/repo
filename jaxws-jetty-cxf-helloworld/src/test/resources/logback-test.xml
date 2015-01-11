@@ -2,38 +2,29 @@
 <configuration>
 
     <!-- PROPERTIES -->
-    <property name="logFile" value="jaxws-jetty-cxf-helloworld-test.log" />
+    <property name="layout" value="%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n" />
+    <property name="logFile" value="jaxws-jetty-cxf-helloworld-test" />
 
-    <!-- LOGBACK APPENDERS -->
-    <appender name="LOG_FILE"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-        <File>${logFile}</File>
-
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <!-- APPENDERS -->
+    <appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logFile}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logFile}.%d{yyyy-MM-dd}.log
             </fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
-                %m%n
-            </pattern>
+            <pattern>${layout}</pattern>
         </encoder>
     </appender>
 
     <appender name="LOG_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder 
-            by default -->
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
-                %m%n
-            </pattern>
+            <pattern>${layout}</pattern>
         </encoder>
     </appender>
 
+    <!-- LOGGERS -->
     <logger name="info.source4code.soap.http.cxf" level="DEBUG" />
 
     <logger name="org.springframework" level="WARN" />

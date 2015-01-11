@@ -1,8 +1,8 @@
 package info.source4code.soap.http.cxf;
 
-import info.source4code.wsdl.helloworld.Greeting;
-import info.source4code.wsdl.helloworld.HelloWorldPort;
-import info.source4code.wsdl.helloworld.Person;
+import info.source4code.services.helloworld.Greeting;
+import info.source4code.services.helloworld.HelloWorldPortType;
+import info.source4code.services.helloworld.Person;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ public class HelloWorldClient {
             .getLogger(HelloWorldClient.class);
 
     @Autowired
-    private HelloWorldPort helloworldRequesterBean;
+    private HelloWorldPortType helloworldRequesterBean;
 
     public String sayHello(Person person) {
         Greeting greeting = helloworldRequesterBean.sayHello(person);
