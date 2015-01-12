@@ -8,8 +8,8 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>JSF - PrimeFaces Hello World using Jetty</name>
-    <url>http://www.source4code.info/2014/04/jsf-primefaces-hello-world-using-jetty.html</url>
+    <name>JSF - PrimeFaces Hello World using Jetty and Maven</name>
+    <url>http://www.source4code.info/2014/04/jsf-primefaces-hello-world-jetty-maven.html</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
