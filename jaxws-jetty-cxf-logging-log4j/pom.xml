@@ -8,8 +8,8 @@
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>JAX-WS - CXF logging inbound and outbound SOAP messages using Log4j</name>
-    <url>http://www.source4code.info/</url>
+    <name>JAX-WS - CXF logging request and response SOAP messages using Log4j</name>
+    <url>http://www.source4code.info/2015/01/jaxws-cxf-logging-request-response-soap-messages-log4j.html</url>
 
     <prerequisites>
         <maven>3.0</maven>
