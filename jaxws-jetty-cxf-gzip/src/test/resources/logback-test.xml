@@ -3,8 +3,8 @@
 
     <!-- PROPERTIES -->
     <property name="layout" value="%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n" />
-    <property name="logFile" value="jaxws-jetty-cxf-logging-test" />
-    <property name="logFile-ws" value="jaxws-jetty-cxf-logging-ws-test" />
+    <property name="logFile" value="jaxws-jetty-cxf-gzip-test" />
+    <property name="logFile-ws" value="jaxws-jetty-cxf-gzip-ws-test" />
 
     <!-- APPENDERS -->
     <appender name="LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
