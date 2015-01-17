@@ -2,45 +2,19 @@
 <configuration scan="true" scanPeriod="60 seconds">
 
     <!-- PROPERTIES -->
-    <property name="logFile" value="jaxws-jetty-cxf-basic-authentication.log" />
-    <property name="logFile-ws"
-        value="jaxws-jetty-cxf-basic-authentication-ws.log" />
+    <property name="layout" value="%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}] %m%n" />
+    <property name="logFile" value="jaxws-jetty-cxf-basic-authentication" />
 
     <!-- APPENDERS -->
-    <appender name="APP_LOG_FILE"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-        <File>${logFile}</File>
-
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+    <appender name="APP_LOG_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${logFile}.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${logFile}.%d{yyyy-MM-dd}.log
             </fileNamePattern>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
-
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
-                %m%n
-            </pattern>
-        </encoder>
-    </appender>
-
-    <appender name="WS_LOG_FILE"
-        class="ch.qos.logback.core.rolling.RollingFileAppender">
-
-        <file>${logFile-ws}</file>
-
-        <rollingPolicy
-            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${logFile-ws}.%d{yyyy-MM-dd}.log
-            </fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>%d{HH:mm:ss.SSS} %-5level [%thread][%logger{0}]
-                %m%n
-            </pattern>
+            <pattern>${layout}</pattern>
         </encoder>
     </appender>
 
@@ -50,14 +24,10 @@
     <logger name="org.springframework" level="WARN" />
     <logger name="org.apache.cxf" level="WARN" />
 
-    <!-- level INFO needed to log SOAP messages -->
-    <logger name="org.apache.cxf.services" level="INFO"
-        additivity="false">
-        <appender-ref ref="WS_LOG_FILE" />
-    </logger>
-
+    <!-- LOG LEVEL -->
     <root level="WARN">
         <appender-ref ref="APP_LOG_FILE" />
     </root>
 
 </configuration>
+ 

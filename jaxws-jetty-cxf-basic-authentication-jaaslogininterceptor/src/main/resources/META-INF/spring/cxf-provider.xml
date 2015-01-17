@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
-    xmlns:sec="http://cxf.apache.org/configuration/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
     xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
-http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
-http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd ">
-
-    <!-- load the cxf extensions needed for the logging interceptors -->
-    <import resource="classpath:META-INF/cxf/cxf.xml" />
-    <!-- import the cxf logging configuration -->
-    <import resource="classpath:META-INF/spring/cxf-logging.xml" />
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <jaxws:endpoint id="helloWorldInterceptorSecuredProviderBean"
         implementor="info.source4code.soap.http.cxf.HelloWorldImpl"
