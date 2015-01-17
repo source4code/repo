@@ -3,8 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
     xmlns:jaxws="http://cxf.apache.org/jaxws"
     xsi:schemaLocation="
-http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
@@ -23,24 +22,15 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
     <!-- gZIPOutInterceptor to gzip client sent messages -->
     <bean id="gZIPOutInterceptor"
         class="org.apache.cxf.transport.common.gzip.GZIPOutInterceptor">
-        <!-- threshold in bytes from which to gzip, default is 1024 (1Kb) -->
+        <!-- threshold in bytes from which to gzip, default is 1024 bytes -->
         <property name="threshold" value="512" />
         <!-- force to also gzip first message, default is false -->
         <property name="force" value="true" />
     </bean>
+
     <!-- gZIPInInterceptor to gzip client received messages -->
     <bean id="gZIPInInterceptor"
         class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor">
     </bean>
-
-    <bean id="loggingFeature" class="org.apache.cxf.feature.LoggingFeature">
-        <property name="prettyLogging" value="true" />
-    </bean>
-
-    <cxf:bus>
-        <cxf:features>
-            <ref bean="loggingFeature" />
-        </cxf:features>
-    </cxf:bus>
 
 </beans>
