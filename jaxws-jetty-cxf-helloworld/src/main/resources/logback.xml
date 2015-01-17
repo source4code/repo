@@ -24,7 +24,7 @@
     <logger name="org.springframework" level="WARN" />
     <logger name="org.apache.cxf" level="WARN" />
 
-    <!-- APPLICATION LOG LEVEL -->
+    <!-- LOG LEVEL -->
     <root level="WARN">
         <appender-ref ref="APP_LOG_FILE" />
     </root>
