@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+    <jaxws:client id="helloWorldRequesterBean"
+        serviceClass="info.source4code.services.helloworld.HelloWorldPortType"
+        address="${helloworld.address}">
+        <!-- add the GZIP interceptors to the client -->
+        <jaxws:outInterceptors>
+            <ref bean="gZIPOutInterceptor" />
+        </jaxws:outInterceptors>
+        <jaxws:inInterceptors>
+            <ref bean="gZIPInInterceptor" />
+        </jaxws:inInterceptors>
+    </jaxws:client>
+
+    <!-- gZIPOutInterceptor to gzip client sent messages -->
+    <bean id="gZIPOutInterceptor"
+        class="org.apache.cxf.transport.common.gzip.GZIPOutInterceptor">
+        <!-- threshold in bytes from which to gzip, default is 1024 bytes -->
+        <property name="threshold" value="512" />
+        <!-- force to also gzip first message, default is false -->
+        <property name="force" value="true" />
+    </bean>
+
+    <!-- gZIPInInterceptor to gzip client received messages -->
+    <bean id="gZIPInInterceptor"
+        class="org.apache.cxf.transport.common.gzip.GZIPInInterceptor">
+    </bean>
+
+</beans>
