@@ -1,14 +1,15 @@
-# Maven
+##Maven##
 target/
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.next
 release.properties
 
-# Eclipse
+##Eclipse##
 .classpath
 .project
 .settings/
 
-# Logs
+##Logs##
 *.log
+*.log.*
