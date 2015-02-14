@@ -22,11 +22,17 @@ public class HelloWorldImplTest {
 
     @BeforeClass
     public static void setUpBeforeClass() throws Exception {
-        // start the HelloWorld service using jaxWsServerFactoryBean
-        HelloWorldImpl implementor = new HelloWorldImpl();
+        // use a CXF JaxWsServerFactoryBean to create JAX-WS endpoints
         JaxWsServerFactoryBean jaxWsServerFactoryBean = new JaxWsServerFactoryBean();
-        jaxWsServerFactoryBean.setAddress(ENDPOINT_ADDRESS);
+
+        // set the HelloWorld implementation
+        HelloWorldImpl implementor = new HelloWorldImpl();
         jaxWsServerFactoryBean.setServiceBean(implementor);
+
+        // set the address at which the HelloWorld endpoint will be exposed
+        jaxWsServerFactoryBean.setAddress(ENDPOINT_ADDRESS);
+        
+        // create the server
         jaxWsServerFactoryBean.create();
     }
 
