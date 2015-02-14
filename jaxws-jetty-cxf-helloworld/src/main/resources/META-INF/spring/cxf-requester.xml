@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
-    <jaxws:client id="helloworldRequesterBean"
+    <!-- allows for ${} replacement in a spring xml configuration from a 
+        .properties file on the classpath -->
+    <context:property-placeholder location="classpath:cxf.properties" />
+
+    <jaxws:client id="helloWorldRequesterBean"
         serviceClass="info.source4code.services.helloworld.HelloWorldPortType"
         address="${helloworld.address}">
     </jaxws:client>
