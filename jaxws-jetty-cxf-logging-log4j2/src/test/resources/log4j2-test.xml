@@ -41,7 +41,6 @@
             <AppenderRef ref="WS_LOG_FILE" />
         </Logger>
 
-        <!-- APPLICATION LOG LEVEL -->
         <Root level="WARN">
             <AppenderRef ref="APP_LOG_FILE" />
             <AppenderRef ref="LOG_STDOUT" />

@@ -42,7 +42,6 @@
         <appender-ref ref="WS_LOG_FILE" />
     </logger>
 
-    <!-- APPLICATION LOG LEVEL -->
     <root level="WARN">
         <appender-ref ref="APP_LOG_FILE" />
     </root>
